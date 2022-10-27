@@ -19,7 +19,7 @@ services:
     volumes:
       - /root/Docker/mongo_vol:/data/configdb
     environment:
-      ME_CONFIG_MONGODB_URL: mongodb://mongouser:mongopwd@localhost:27017/db?ssl=false
+      ME_CONFIG_MONGODB_URL: mongo_vol://mongouser:mongopwd@localhost:27017/db?ssl=false
   mongo:
     image: mongo:6.0.2
     ports:
