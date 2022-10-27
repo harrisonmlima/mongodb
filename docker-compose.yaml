@@ -9,24 +9,24 @@ networks:
 
 services:
     api:
-        image: mongo-express:0.54
-        ports:
-          - 8081:8081
-        depends_on:
-          - mongo
-        networks:
-          - produto_net
-        environment:
-          MONGO_INITDB_ROOT_USERNAME: mongouser
-          MONGO_INITDB_ROOT_PASSWORD: mongopwd
+      image: mongo-express:0.54
+      ports:
+        - 8081:8081
+      depends_on:
+        - mongo
+      networks:
+        - produto_net
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: mongouser
+        MONGO_INITDB_ROOT_PASSWORD: mongopwd
     mongo:
-        image: mongo:6.0.2
-        ports:
-          - 27017:27017
-        networks:
-          - produto_net
-        volumes:
-          - mongo_vol:/data/db
-        environment:
-          MONGO_INITDB_ROOT_USERNAME: mongouser
-          MONGO_INITDB_ROOT_PASSWORD: mongopwd
+      image: mongo:6.0.2
+      ports:
+        - 27017:27017
+      networks:
+        - produto_net
+      volumes:
+        - mongo_vol:/data/db
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: mongouser
+        MONGO_INITDB_ROOT_PASSWORD: mongopwd
