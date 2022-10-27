@@ -16,6 +16,8 @@ services:
       - mongo
     networks:
       - produto_net
+    volumes:
+      - /root/Docker/mongo_vol:/data/configdb
     environment:
       ME_CONFIG_MONGODB_URL: mongodb://mongouser:mongopwd@localhost:27017/db?ssl=false
   mongo:
@@ -25,7 +27,7 @@ services:
     networks:
       - produto_net
     volumes:
-      - mongo_vol:/data/db
+      - /root/Docker/mongo_vol:/data/configdb
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongouser
       MONGO_INITDB_ROOT_PASSWORD: mongopwd
