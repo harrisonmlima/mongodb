@@ -1,33 +1,47 @@
-version: '3'
+version: '3.1'
 
 volumes:
-  mongo_vol:
+  mongodb_vol:
 
 networks:
   produto_net:
     driver: bridge
 
 services:
-  api:
-    image: mongo-express:0.54
+
+  mongo:
+    image: mongo
+    restart: always
+    networks:
+      - produto_net
+    volumes:
+      - mongodb_vol:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  mongo-express:
+    image: mongo-express
+    restart: always
     ports:
       - 8081:8081
-    depends_on:
-      - mongo
     networks:
       - produto_net
     volumes:
-      - /root/Docker/mongo_vol:/data/configdb
+      - mongodb_vol:/data/db
     environment:
-      ME_CONFIG_MONGODB_URL: mongo_vol://mongouser:mongopwd@localhost:27017/db?ssl=false
-  mongo:
-    image: mongo:6.0.2
-    ports:
-      - 27017:27017
-    networks:
-      - produto_net
-    volumes:
-      - /root/Docker/mongo_vol:/data/configdb
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: mongouser
-      MONGO_INITDB_ROOT_PASSWORD: mongopwd
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+
+
+
+
+
+
+
+
+
+
+
+
